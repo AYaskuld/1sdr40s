@@ -4,7 +4,7 @@ Wants=arpCheck.timer
 
 [Service]
 Type=simple
-ExecStart=~/scrypt.sh
+ExecStart=/root/scrypt.sh
 
 [Install]
 WantedBy=multi-user.target
