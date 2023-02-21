@@ -1,0 +1,10 @@
+[Unit]
+Description=ARPchecks one minute update
+Requires=arpCheck.service
+
+[Timer]
+Unit=arpCheck.service
+OnCalendar=*-*-* *:*:00
+
+[Install]
+WantedBy=timers.target
