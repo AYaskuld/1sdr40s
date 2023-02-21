@@ -1,0 +1,10 @@
+[Unit]
+Description=ARP checks
+Wants=arpCheck.timer
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/scrypt.sh
+
+[Install]
+WantedBy=multi-user.target
