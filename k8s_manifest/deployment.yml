@@ -16,32 +16,34 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: myapp:latest
+          image: nginx:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80
           readinessProbe:
 # Проверка готовности приема трафика по 8080 порту.         
             tcpSocket:
-              port: 8080
+              port: 80
             failureThreshold: 40
             periodSeconds: 1
 # Проверка доступности и жизнеспособности контейнера, который находится на 8080 порту.
           livenessProbe:
             tcpSocket:
-              port: 8080
+              port: 80
             failureThreshold: 40
             periodSeconds: 1
 # Проверка работоспособности приложения
           startupProbe:
             httpGet:
               path: /
-              port: 8080
+              port: 80
             initialDelaySeconds: 5
             failureThreshold: 40
             periodSeconds: 1
           resources:
             limits:
               cpu: 500m
+# Для того, что бы дать время для запуска нового пода              
+              memory: 256Mi
             requests:
               cpu: 100m
               memory: 128Mi
@@ -56,7 +58,7 @@ spec:
                       - web
               topologyKey: "kubernetes.io/hostname" 
 ---
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: myapp-hpa
@@ -74,3 +76,10 @@ spec:
         target:
           type: Utilization
           averageUtilization: 50
+          
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 128Mi
