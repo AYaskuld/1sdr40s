@@ -20,12 +20,12 @@ spec:
           ports:
             - containerPort: 80
           readinessProbe:
-# Проверка готовности приема трафика по 8080 порту.         
+# Проверка готовности приема трафика по 80 порту.         
             tcpSocket:
               port: 80
             failureThreshold: 40
             periodSeconds: 1
-# Проверка доступности и жизнеспособности контейнера, который находится на 8080 порту.
+# Проверка доступности и жизнеспособности контейнера, который находится на 80 порту.
           livenessProbe:
             tcpSocket:
               port: 80
@@ -70,12 +70,13 @@ spec:
   minReplicas: 2
   maxReplicas: 4
   metrics:
-    - type: Resource
-      resource:
-        name: cpu
+    - type: Pods
+      pods:
+        metric:
+          name: pods-cpu
         target:
-          type: Utilization
-          averageUtilization: 50
+          type: AverageValue
+          averageValue: 1k
           
     - type: Resource
       resource:
