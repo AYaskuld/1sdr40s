@@ -41,7 +41,7 @@ spec:
             periodSeconds: 1
           resources:
             limits:
-              cpu: 500m
+              cpu: 1000m
 # Для того, что бы дать время для запуска нового пода              
               memory: 256Mi
             requests:
@@ -76,7 +76,7 @@ spec:
           name: pods-cpu
         target:
           type: AverageValue
-          averageValue: 1k
+          averageValue: 800m
           
     - type: Resource
       resource:
