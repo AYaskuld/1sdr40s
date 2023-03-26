@@ -45,6 +45,7 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+# Распределение подов по разным зонам              
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -54,7 +55,7 @@ spec:
                     operator: In
                     values:
                       - web
-              topologyKey: "kubernetes.io/hostname" 
+              topologyKey: topology.kubernetes.io/zone
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
