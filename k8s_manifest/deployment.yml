@@ -41,15 +41,13 @@ spec:
             periodSeconds: 1
           resources:
             limits:
-              cpu: 1000m
-# Для того, что бы дать время для запуска нового пода              
-              memory: 256Mi
+              cpu: 1600m
             requests:
               cpu: 100m
               memory: 128Mi
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
                   - key: app
@@ -75,11 +73,11 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 50
+          averageUtilization: 60
           
     - type: Resource
       resource:
         name: memory
         target:
-          type: AverageValue
-          averageValue: 128Mi
+          type: Utilization
+          averageUtilization: 80
