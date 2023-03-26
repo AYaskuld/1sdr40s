@@ -23,22 +23,22 @@ spec:
 # Проверка готовности приема трафика по 80 порту.         
             tcpSocket:
               port: 80
-            failureThreshold: 40
-            periodSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
 # Проверка доступности и жизнеспособности контейнера, который находится на 80 порту.
           livenessProbe:
             tcpSocket:
               port: 80
-            failureThreshold: 40
-            periodSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
 # Проверка работоспособности приложения
           startupProbe:
             httpGet:
               path: /
               port: 80
             initialDelaySeconds: 5
-            failureThreshold: 40
-            periodSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
           resources:
             limits:
               cpu: 1600m
@@ -76,6 +76,7 @@ spec:
         name: cpu
         target:
           type: Utilization
+# Установил значение в 60% что бы дать поду время для масштабирования          
           averageUtilization: 60
           
     - type: Resource
